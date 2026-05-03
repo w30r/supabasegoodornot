@@ -1,44 +1,78 @@
 "use server";
 
-import { createClient } from "@/utils/supabase/client";
+import { createClient } from "@/utils/supabase/server";
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 
-export async function createLobby() {
-  const supabase = createClient();
+export async function getAllTodos() {
+  const cookieStore = await cookies();
+  const supabase = createClient(cookieStore);
 
-  // 1. Generate a random 4-character room code
-  const characters = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; // Removed confusing O, 0, I, 1
-  let roomCode = "";
-  for (let i = 0; i < 4; i++) {
-    roomCode += characters.charAt(
-      Math.floor(Math.random() * characters.length),
-    );
+  const { data, error } = await supabase.from("todos").select();
+
+  if (error) {
+    console.error("❌ Supabase Error:", error);
+    return { error: "Gagal fetch todos. Try again, boss." };
   }
 
-  // 2. Insert into Supabase
-  const { error } = await supabase
-    .from("rooms")
-    .insert([{ room_code: roomCode }])
+  console.log("✅ Fetched todos successfully:", data);
+  return data;
+}
+
+export async function createTodo(task: string) {
+  const cookieStore = await cookies();
+  const supabase = createClient(cookieStore);
+
+  const { data, error } = await supabase
+    .from("todos")
+    .insert([{ task, isDone: false }]) // ← Changed to isDone
     .select()
     .single();
 
   if (error) {
-    console.error("Error creating room:", error);
-    return { error: "Gagal create room. Try again, boss." };
+    console.error("❌ Error creating todo:", error);
+    return { error: "Gagal create todo. Try again, boss." };
   }
 
-  // 3. Redirect to the dynamic room page
-  redirect(`/room/${roomCode}`);
-}
-
-export async function getAllLobbies() {
-  // const cookieStore = await cookies();
-  const supabase = createClient();
-  const { data, error } = await supabase.from("rooms").select();
-  if (error) {
-    console.error("Error fetching rooms:", error);
-    return { error: "Gagal fetch room. Try again, boss." };
-  }
+  console.log("✅ Created todo:", data);
   return data;
 }
+
+export async function updateTodo(
+  id: number,
+  updates: { task?: string; isDone?: boolean },
+) {
+  // ← Changed to isDone
+  const cookieStore = await cookies();
+  const supabase = createClient(cookieStore);
+
+  const { data, error } = await supabase
+    .from("todos")
+    .update(updates)
+    .eq("id", id)
+    .select()
+    .single();
+
+  if (error) {
+    console.error("❌ Error updating todo:", error);
+    return { error: "Gagal update todo. Try again, boss." };
+  }
+
+  console.log("✅ Updated todo:", data);
+  return data;
+}
+
+export async function deleteTodoById(id: number) {
+  const cookieStore = await cookies();
+  const supabase = createClient(cookieStore);
+
+  const { error } = await supabase.from("todos").delete().eq("id", id);
+
+  if (error) {
+    console.error("❌ Error deleting todo:", error);
+    return { error: "Gagal delete todo. Try again, boss." };
+  }
+
+  console.log("✅ Deleted todo with id:", id);
+  return { success: true };
+}
+

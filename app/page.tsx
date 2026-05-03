@@ -1,84 +1,159 @@
-import { Utensils, MapPin, Users, ArrowRight, Zap } from "lucide-react";
-import { createLobby } from "./actions";
+import { HardHat, Users, ClipboardCheck, BarChart3, ArrowRight, ShieldCheck, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
-export default function MakanManaLanding() {
+export default function ConstructionLanding() {
   return (
-    <div className="min-h-screen bg-background flex flex-col items-center justify-center p-6 font-sans select-none">
-      {/* Hero Section */}
-      <div className="text-center mb-10">
-        <div className="bg-primary w-20 h-20 rounded-xl flex items-center justify-center mx-auto mb-6 shadow-lg rotate-2 border-2 border-primary">
-          <Utensils className="text-primary-foreground w-10 h-10" />
-        </div>
-        <h1 className="text-4xl font-bold text-foreground tracking-tight italic">
-          MAKAN<span className="text-primary">MANA?</span>
-        </h1>
-        <p className="text-muted-foreground mt-2 text-base font-medium">
-          Solving the &quot;mana-mana pun boleh&quot; dilemma.
-        </p>
-      </div>
+    <div className="flex flex-col min-h-screen">
+      {/* Navbar */}
+      <header className="px-4 lg:px-6 h-14 flex items-center border-b border-border/40">
+        <Link className="flex items-center justify-center" href="#">
+          <HardHat className="h-6 w-6 text-primary mr-2" />
+          <span className="font-bold text-xl tracking-tighter">BuildTrack</span>
+        </Link>
+        <nav className="ml-auto flex gap-4 sm:gap-6">
+          <Link className="text-sm font-medium hover:underline underline-offset-4" href="#features">
+            Features
+          </Link>
+          <Link className="text-sm font-medium hover:underline underline-offset-4" href="#about">
+            About
+          </Link>
+          <Link href="/dashboard">
+            <Button size="sm">Go to Dashboard</Button>
+          </Link>
+        </nav>
+      </header>
 
-      {/* Action Card */}
-      <div className="w-full max-w-sm bg-card rounded-xl shadow-xl p-8 border-2 border-border">
-        <div className="space-y-6">
-          {/* Create Room Button */}
-          <form
-            // action={createLobby}
-            className="space-y-6"
-            onSubmit={createLobby}
-          >
-            <Button
-              variant="default"
-              type="submit"
-              className="w-full bg-primary hover:opacity-90 text-primary-foreground font-bold py-4 rounded-lg flex items-center justify-center gap-3 transition-all active:translate-y-1 shadow-md"
-            >
-              <Zap className="w-5 h-5 fill-current" />
-              Create Lobby
-              <ArrowRight className="w-5 h-5" />
-            </Button>
-          </form>
-
-          <div className="relative flex items-center py-2">
-            <div className="grow border-t border-border"></div>
-            <span className="shrink mx-4 text-muted-foreground text-xs font-bold uppercase tracking-widest">
-              Join Friends
-            </span>
-            <div className="grow border-t border-border"></div>
-          </div>
-
-          {/* Join Room Section */}
-          <div className="space-y-3">
-            <div className="flex gap-2">
-              <input
-                type="text"
-                placeholder="ROOM CODE"
-                className="flex-1 bg-input border-2 border-border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-ring uppercase font-mono tracking-tighter text-foreground placeholder:text-muted-foreground/50"
-              />
-              <button className="bg-secondary hover:opacity-90 text-secondary-foreground px-5 py-3 rounded-lg font-bold shadow-sm transition-all active:translate-y-1">
-                JOIN
-              </button>
+      <main className="flex-1">
+        {/* Hero Section */}
+        <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 bg-background">
+          <div className="container px-4 md:px-6 mx-auto">
+            <div className="flex flex-col items-center space-y-4 text-center">
+              <div className="space-y-2">
+                <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
+                  Precision Management for <br />
+                  <span className="text-primary">Modern Construction</span>
+                </h1>
+                <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl">
+                  BuildTrack empowers site managers to monitor labor productivity, ensure safety compliance, and streamline workforce allocation in real-time.
+                </p>
+              </div>
+              <div className="space-x-4">
+                <Link href="/dashboard">
+                  <Button className="px-8 py-6 text-lg" size="lg">
+                    Get Started <ArrowRight className="ml-2 h-5 w-5" />
+                  </Button>
+                </Link>
+                <Button variant="outline" size="lg" className="px-8 py-6 text-lg">
+                  Watch Demo
+                </Button>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
+        </section>
 
-      {/* Malaysian Vibes Badges */}
-      <div className="mt-10 flex flex-wrap justify-center gap-3 w-full max-w-sm">
-        <div className="flex items-center gap-2 text-muted-foreground text-xs font-bold bg-muted/30 px-3 py-2 rounded-full border border-border shadow-xs">
-          <MapPin className="w-3 h-3" />
-          <span>KL / SELANGOR</span>
-        </div>
-        <div className="flex items-center gap-2 text-muted-foreground text-xs font-bold bg-muted/30 px-3 py-2 rounded-full border border-border shadow-xs">
-          <Users className="w-3 h-3" />
-          <span>COUPLES / GANGS</span>
-        </div>
-      </div>
+        {/* Features Section */}
+        <section id="features" className="w-full py-12 md:py-24 lg:py-32 bg-secondary/10">
+          <div className="container px-4 md:px-6 mx-auto">
+            <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12">
+              <div className="space-y-2">
+                <div className="inline-block rounded-lg bg-primary/10 px-3 py-1 text-sm text-primary">Key Features</div>
+                <h2 className="text-3xl font-bold tracking-tighter md:text-4xl">Everything you need to lead</h2>
+                <p className="mx-auto max-w-[600px] text-muted-foreground md:text-lg/relaxed">
+                  Our platform provides comprehensive tools designed specifically for the construction industry.
+                </p>
+              </div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="flex flex-col items-center p-6 bg-card rounded-xl border border-border shadow-sm">
+                <div className="p-3 bg-primary/10 rounded-full mb-4">
+                  <Users className="h-8 w-8 text-primary" />
+                </div>
+                <h3 className="text-xl font-bold mb-2">Workforce Tracking</h3>
+                <p className="text-muted-foreground text-center">
+                  Real-time monitoring of personnel across multiple sites with automated attendance logs.
+                </p>
+              </div>
+              <div className="flex flex-col items-center p-6 bg-card rounded-xl border border-border shadow-sm">
+                <div className="p-3 bg-primary/10 rounded-full mb-4">
+                  <ShieldCheck className="h-8 w-8 text-primary" />
+                </div>
+                <h3 className="text-xl font-bold mb-2">Safety Compliance</h3>
+                <p className="text-muted-foreground text-center">
+                  Digitized safety briefings, hazard reporting, and automated compliance tracking.
+                </p>
+              </div>
+              <div className="flex flex-col items-center p-6 bg-card rounded-xl border border-border shadow-sm">
+                <div className="p-3 bg-primary/10 rounded-full mb-4">
+                  <BarChart3 className="h-8 w-8 text-primary" />
+                </div>
+                <h3 className="text-xl font-bold mb-2">Project Analytics</h3>
+                <p className="text-muted-foreground text-center">
+                  Detailed insights into labor costs, project timelines, and overall site productivity.
+                </p>
+              </div>
+              <div className="flex flex-col items-center p-6 bg-card rounded-xl border border-border shadow-sm">
+                <div className="p-3 bg-primary/10 rounded-full mb-4">
+                  <ClipboardCheck className="h-8 w-8 text-primary" />
+                </div>
+                <h3 className="text-xl font-bold mb-2">Skill Management</h3>
+                <p className="text-muted-foreground text-center">
+                  Maintain a database of worker certifications, skills, and past performance ratings.
+                </p>
+              </div>
+              <div className="flex flex-col items-center p-6 bg-card rounded-xl border border-border shadow-sm">
+                <div className="p-3 bg-primary/10 rounded-full mb-4">
+                  <MapPin className="h-8 w-8 text-primary" />
+                </div>
+                <h3 className="text-xl font-bold mb-2">Multi-Site Allocation</h3>
+                <p className="text-muted-foreground text-center">
+                  Easily move crews between projects based on urgency and resource requirements.
+                </p>
+              </div>
+              <div className="flex flex-col items-center p-6 bg-card rounded-xl border border-border shadow-sm">
+                <div className="p-3 bg-primary/10 rounded-full mb-4">
+                  <HardHat className="h-8 w-8 text-primary" />
+                </div>
+                <h3 className="text-xl font-bold mb-2">Resource Optimization</h3>
+                <p className="text-muted-foreground text-center">
+                  Reduce idle time and labor overhead with intelligent scheduling and forecasting.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
 
-      <footer className="mt-16 flex flex-col items-center gap-2">
-        <div className="h-1 w-12 bg-primary/20 rounded-full" />
-        <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-[0.2em]">
-          Built for the 🇲🇾 Foodie
-        </p>
+        {/* CTA Section */}
+        <section className="w-full py-12 md:py-24 lg:py-32 border-t border-border/40">
+          <div className="container px-4 md:px-6 mx-auto">
+            <div className="flex flex-col items-center justify-center space-y-4 text-center">
+              <div className="space-y-2">
+                <h2 className="text-3xl font-bold tracking-tighter md:text-4xl">Ready to streamline your sites?</h2>
+                <p className="mx-auto max-w-[600px] text-muted-foreground md:text-xl">
+                  Join hundreds of construction firms optimizing their workforce with BuildTrack.
+                </p>
+              </div>
+              <Link href="/dashboard">
+                <Button size="lg" className="mt-4 px-10 py-6 text-lg">
+                  Launch Dashboard
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      {/* Footer */}
+      <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t border-border/40">
+        <p className="text-xs text-muted-foreground">© 2026 BuildTrack Inc. All rights reserved.</p>
+        <nav className="sm:ml-auto flex gap-4 sm:gap-6">
+          <Link className="text-xs hover:underline underline-offset-4" href="#">
+            Terms of Service
+          </Link>
+          <Link className="text-xs hover:underline underline-offset-4" href="#">
+            Privacy
+          </Link>
+        </nav>
       </footer>
     </div>
   );
